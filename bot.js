@@ -4,7 +4,7 @@ const fetch = (...args) => import("node-fetch").then(({ default: f }) => f(...ar
 // ============================================================
 //  PUT YOUR CREDENTIALS HERE
 // ============================================================
-const BOT_TOKEN = "PASTE_YOUR_BOT_TOKEN_HERE";
+const TOKEN = process.env.TOKEN;
 const CLIENT_ID = "1488652011485270117";
 
 // When running locally this points to your server.js.
@@ -19,7 +19,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const commands = [
   new SlashCommandBuilder()
     .setName("log")
-    .setDescription("Show who has hit the tracking link 👀")
+    .setDescription("show who got fucking ip logged lol")
     .toJSON(),
 ];
 
@@ -50,7 +50,7 @@ client.on("interactionCreate", async (interaction) => {
       const visits = await res.json();
 
       if (visits.length === 0) {
-        await interaction.editReply("No visits yet. Nobody cooked 🧊");
+        await interaction.editReply("eh nobody fucking doxxed yet");
         return;
       }
 
@@ -67,7 +67,7 @@ client.on("interactionCreate", async (interaction) => {
       });
 
       const message = [
-        `yo some guy just hit the link, they cooked 🔥`,
+        `some bitch just click za link noo he cooked`,
         ``,
         `**Last ${recent.length} visit(s):**`,
         ...lines,
