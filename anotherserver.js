@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 const LOG_FILE = "visits.json";
 
 // ============================================================
-const BOT_TOKEN = "MTQ4ODY1MjAxMTQ4NTI3MDExNw.G1SzHF.CxQ2_eQ31KVAyE-78_LI4Fqp7BqM-2P2GV5M8k";
+const BOT_TOKEN = process.env.TOKEN;
 const YOUR_DISCORD_USER_ID = "1473465013946552362";
 // ============================================================
 
