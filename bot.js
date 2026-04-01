@@ -1,29 +1,20 @@
 const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder } = require("discord.js");
 const fetch = (...args) => import("node-fetch").then(({ default: f }) => f(...args));
 
-// ============================================================
-//  PUT YOUR CREDENTIALS HERE
-// ============================================================
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = "1488652011485270117";
-
-// When running locally this points to your server.js.
-// On Railway, change this to your Railway server URL e.g.:
-// const SERVER_URL = "https://your-app.up.railway.app";
 const SERVER_URL = process.env.SERVER_URL || "http://localhost:3000";
-// ============================================================
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// Register the /log slash command
 const commands = [
   new SlashCommandBuilder()
     .setName("log")
-    .setDescription("show who got fucking ip logged lol")
+    .setDescription("show who got ip logged lol")
     .toJSON(),
 ];
 
-const rest = new REST({ version: "10" }).setToken(BOT_TOKEN);
+const rest = new REST({ version: "10" }).setToken(TOKEN);
 
 (async () => {
   try {
@@ -50,11 +41,10 @@ client.on("interactionCreate", async (interaction) => {
       const visits = await res.json();
 
       if (visits.length === 0) {
-        await interaction.editReply("eh nobody fucking doxxed yet");
+        await interaction.editReply("noone got logged YET");
         return;
       }
 
-      // Show the last 5 visits
       const recent = visits.slice(-5).reverse();
       const lines = recent.map((v, i) => {
         const time = new Date(v.timestamp).toLocaleString("en-US", {
@@ -67,7 +57,7 @@ client.on("interactionCreate", async (interaction) => {
       });
 
       const message = [
-        `some bitch just click za link noo he cooked`,
+        `some bitch clicked za link i wonder how it is`,
         ``,
         `**Last ${recent.length} visit(s):**`,
         ...lines,
@@ -78,11 +68,9 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.editReply(message);
     } catch (err) {
       console.error(err);
-      await interaction.editReply(
-        "Couldn't reach the tracking server. Is server.js running? 🤔"
-      );
+      await interaction.editReply("Couldn't reach the tracking server. Is it running? 🤔");
     }
   }
 });
 
-client.login(BOT_TOKEN);
+client.login(TOKEN);
